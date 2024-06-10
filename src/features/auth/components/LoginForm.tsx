@@ -33,19 +33,7 @@ export default function LoginForm() {
   })
 
   async function onSubmit(values: z.infer<typeof loginUserSchema>) {
-    const { email, password } = values
-    const action = await dispatch(loginUser({ email, password }))
-
-    if (loginUser.fulfilled.match(action)) {
       router.push('/dashboard')
-    } else if (loginUser.rejected.match(action)) {
-      const { payload } = action
-
-      // manually set the error for the form email if there has been an
-      // error that occured in the request of the application,
-      // this is because of network errors may not be catched easily
-      form.setError('email', { message: payload?.data.message })
-    }
   }
 
   return (

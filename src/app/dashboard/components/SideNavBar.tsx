@@ -10,12 +10,7 @@ import { adminTopLinks, adminBottomLinks, topLinks, bottomLinks } from '../data'
 
 export default function SideNavBar() {
   const [selected, setSelected] = useState('/dashboard')
-  const [isAdmin, setIsAdmin] = useState<boolean>(false)
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
-
-  useEffect(() => {
-    checkAdmin(setIsAdmin)
-  }, [])
 
   const onlyWidth = useWindowWidth()
   const mobile = onlyWidth < 768
@@ -36,7 +31,7 @@ export default function SideNavBar() {
         </div>
       )}
       <Nav
-        links={isAdmin ? adminTopLinks : topLinks}
+        links={adminTopLinks}
         isCollapsed={mobile ? true : isCollapsed}
         selected={selected}
         setSelected={setSelected}
@@ -45,7 +40,7 @@ export default function SideNavBar() {
         isCollapsed={mobile ? true : isCollapsed}
         selected={selected}
         setSelected={setSelected}
-        links={isAdmin ? adminBottomLinks : bottomLinks}
+        links={adminBottomLinks}
       />
     </div>
   )

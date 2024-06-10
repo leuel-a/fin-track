@@ -1,17 +1,17 @@
 'use client'
 
-import LoadingSpinner from '@/components/LoadingSpinner'
-import { months } from '@/types/transaction'
-import { useGetTransactionSummaryForYearQuery } from '@/features/transaction/transactionSlice'
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import {months} from '@/types/transaction'
+import {useGetTransactionSummaryForYearQuery} from '@/features/transaction/transactionSlice'
+import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts'
+
+import {transactions} from "@/app/dashboard/data";
 
 export default function LineChartComponent() {
-  const { isLoading, isError, data: transactions } = useGetTransactionSummaryForYearQuery(2023)
+  const {isLoading, isError, data} = useGetTransactionSummaryForYearQuery(2023)
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      {isLoading ? (<div className="w-full h-full flex items-center justify-center"><LoadingSpinner /></div>) : (
-        <LineChart
+      <LineChart
           width={500}
           height={300}
           data={transactions?.map(transaction => ({
@@ -32,7 +32,7 @@ export default function LineChartComponent() {
           <Legend />
           <Line type="monotone" dataKey="expense" stroke="#82ca9d" />
           <Line type="monotone" dataKey="income" stroke="#005377" activeDot={{ r: 8 }} />
-        </LineChart>)}
+      </LineChart>
     </ResponsiveContainer>
   )
 }
